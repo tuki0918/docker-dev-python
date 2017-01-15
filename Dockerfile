@@ -31,8 +31,10 @@ RUN cv_ver='3.2.0' build_dir="/tmp/opencv-build" cv_name="opencv-${cv_ver}" cv_c
         -D OPENCV_EXTRA_MODULES_PATH=${build_dir}/${cv_con_name}/modules .. \
     && make -j4 \
     && make install \
-    && rm -rf /tmp/opencv-build
+    && rm -rf ${build_dir}
 
 # image:python:3.6-onbuild
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 ONBUILD COPY requirements.txt /usr/src/app/
 ONBUILD RUN pip install --no-cache-dir -r requirements.txt
