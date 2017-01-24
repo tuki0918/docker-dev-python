@@ -33,6 +33,13 @@ RUN cv_ver='3.2.0' build_dir="/tmp/opencv-build" cv_name="opencv-${cv_ver}" cv_c
     && make install \
     && rm -rf ${build_dir}
 
+# anaconda install
+ENV ANACONDA_VERSION 4.2.0
+wget -q https://repo.continuum.io/archive/Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh \
+    && bash Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh -b \
+    && rm -f Anaconda3-${ANACONDA_VERSION}-Linux-x86_64.sh
+ENV PATH /root/anaconda3/bin:$PATH
+
 # image:python:3.6-onbuild
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
